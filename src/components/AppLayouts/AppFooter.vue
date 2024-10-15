@@ -17,11 +17,11 @@
 
 <script setup lang="ts">
 import { ButtonSize, ButtonVariant } from '@/types'
-import { useDarkMode } from '@/composables'
+import { useDarkMode, useLocalPostData } from '@/composables'
 import { reset, resetDark } from '@/assets'
-import { deleteLocalPosts } from '@/utils'
 
 const { darkModeToggle, isDark } = useDarkMode()
+const { deleteLocalPosts } = useLocalPostData()
 
 const resetTableData = () => {
   window.location.reload()

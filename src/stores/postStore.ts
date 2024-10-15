@@ -1,10 +1,10 @@
 import type { Post, FormPost } from '@/types'
 import { defineStore } from 'pinia'
 import { computed, ref, watch } from 'vue'
-import { useAxios } from '@/composables'
-import { saveLocalPosts, getLocalPosts } from '@/utils'
+import { useAxios, useLocalPostData } from '@/composables'
 
 const { get, post, put, del } = useAxios()
+const { saveLocalPosts, getLocalPosts } = useLocalPostData()
 
 export const usePostStore = defineStore('postStore', () => {
   const posts = ref<Post[]>([])
