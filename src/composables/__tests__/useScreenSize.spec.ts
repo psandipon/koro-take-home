@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, test, expect, vi } from 'vitest'
 import useScreenSize from '@/composables/useScreenSize'
 import { ref } from 'vue'
 
@@ -10,15 +10,13 @@ vi.mock('@vueuse/core', () => ({
 }))
 
 describe('useScreenSize', () => {
-  it('returns smOrGreater as true when screen size is greater than or equal to "sm"', () => {
+  test('returns smOrGreater as true when screen size is greater than or equal to "sm"', () => {
     const { smOrGreater } = useScreenSize()
-
     expect(smOrGreater.value).toBe(true)
   })
 
-  it('returns activeBreakpoints', () => {
+  test('returns activeBreakpoints', () => {
     const { activeBreakpoints } = useScreenSize()
-
     expect(activeBreakpoints).toBeDefined()
     expect(activeBreakpoints.greaterOrEqual).toBeDefined()
   })

@@ -1,14 +1,15 @@
 <template>
-  <div class="base-select">
-    <label :for="name">{{ labelText }}</label>
+  <div class="base-select-component" data-test="base-select">
+    <label :for="name" data-test="base-select-label">{{ labelText }}</label>
     <Multiselect
       v-model="modelValue"
       :options="options"
       searchable
       :canClear="false"
       class="multiselect"
+      data-test="base-select"
     />
-    <p>{{ errorMessage ?? '' }}</p>
+    <p data-test="base-error">{{ errorMessage ?? '' }}</p>
   </div>
 </template>
 

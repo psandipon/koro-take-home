@@ -4,11 +4,18 @@ import AppLayout from '@/components/AppLayouts/AppLayout.vue'
 import Header from '@/components/AppLayouts/AppHeader.vue'
 import Footer from '@/components/AppLayouts/AppFooter.vue'
 
+//  global: {
+//    stubs: {
+//      BasePagination: true
+//    }
+//  }
+
 describe('AppLayout', () => {
   it('renders the Header component', () => {
     const wrapper = shallowMount(AppLayout, {
       global: {
         stubs: {
+          BaseButton: true,
           'router-view': true
         }
       }
@@ -20,6 +27,7 @@ describe('AppLayout', () => {
     const wrapper = shallowMount(AppLayout, {
       global: {
         stubs: {
+          BaseButton: true,
           'router-view': true
         }
       }
@@ -31,6 +39,7 @@ describe('AppLayout', () => {
     const wrapper = shallowMount(AppLayout, {
       global: {
         stubs: {
+          BaseButton: true,
           'router-view': true
         }
       }

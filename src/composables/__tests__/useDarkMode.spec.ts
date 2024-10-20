@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, test, expect } from 'vitest'
 import { h } from 'vue'
 import { ButtonSize, ButtonVariant } from '@/types'
 import useDarkMode from '@/composables/useDarkMode'
@@ -6,7 +6,7 @@ import { BaseButton } from '@/components/BaseComponents'
 import { moon } from '@/assets'
 
 describe('useDarkMode', () => {
-  it('returns isDark, toggleDark, and darkModeToggle', () => {
+  test('returns isDark, toggleDark, and darkModeToggle', () => {
     const { isDark, toggleDark, darkModeToggle } = useDarkMode()
 
     expect(isDark.value).toBe(false)

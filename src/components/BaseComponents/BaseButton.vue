@@ -3,10 +3,17 @@
     :class="['base-button', `${size}`, `${variant}`, { loading: loading }]"
     :disabled="loading || disabled"
     @click="handleClick"
+    data-test="base-button"
   >
     <span>
-      <img v-if="loading" :src="isDark ? loaderDark : loader" alt="loading..." class="loader" />
-      <img v-else-if="icon" :src="icon" alt="icon" class="icon" />
+      <img
+        v-if="loading"
+        :src="isDark ? loaderDark : loader"
+        alt="loading..."
+        class="loader"
+        data-test="base-button-loader"
+      />
+      <img v-else-if="icon" :src="icon" alt="icon" class="icon" data-test="base-button-icon" />
       <slot v-else>
         {{ text }}
       </slot>

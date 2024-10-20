@@ -1,8 +1,12 @@
 <template>
-  <div class="base-input" :class="{ 'has-error': !!errorMessage, 'is-success': meta.valid }">
-    <label :for="name">{{ labelText }}</label>
+  <div
+    class="base-input"
+    :class="{ 'has-error': !!errorMessage, 'is-success': meta.valid }"
+    data-test="base-input-component"
+  >
+    <label :for="name" data-test="base-input-label">{{ labelText }}</label>
     <component :is="inputComponent" />
-    <p>{{ errorMessage ?? '' }}</p>
+    <p data-test="base-input-error">{{ errorMessage ?? '' }}</p>
   </div>
 </template>
 
@@ -48,6 +52,7 @@ const textInput = () => {
     name,
     type: 'text',
     value: modelValue,
+    'data-test': 'base-input',
     onInput: (event) => {
       const userValue = (event.target as HTMLInputElement).value
       validationValue.value = userValue
@@ -64,6 +69,7 @@ const textArea = () => {
     ...attrs,
     name,
     value: modelValue,
+    'data-test': 'base-textarea',
     onInput: (event) => {
       const userValue = (event.target as HTMLInputElement).value
       validationValue.value = userValue

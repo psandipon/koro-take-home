@@ -26,55 +26,33 @@ describe('BaseTable.vue', () => {
     { text: 'Value', value: 'value' }
   ]
 
-  it('renders table with items and headers', async () => {
-    const wrapper = mount(BaseTable, {
-      props: { items, headers },
+  const factory = (props = {}, factoryHeaders = headers) => {
+    return mount(BaseTable, {
+      props: { items, headers: factoryHeaders, ...props },
       global: {
         stubs: {
           BasePagination: true
         }
       }
     })
+  }
 
-    await wrapper.vm.$nextTick()
-
+  it('renders table with items and headers', async () => {
+    const wrapper = factory()
     const ths = wrapper.findAll('thead th')
     expect(ths.length).toBe(3)
-
     const trs = wrapper.findAll('tbody tr')
     expect(trs.length).toBe(2)
   })
 
   it('emits edit event when Edit button is clicked', async () => {
-    const wrapper = mount(BaseTable, {
-      props: {
-        items,
-        headers: [...headers, { text: 'Edit', value: 'edit' }]
-      },
-      global: {
-        stubs: {
-          BasePagination: true
-        }
-      }
-    })
-
+    const wrapper = factory({}, [...headers, { text: 'Edit', value: 'edit' }])
     await wrapper.find('button').trigger('click')
     expect(wrapper.emitted('edit')).toBeTruthy()
   })
 
   it('emits delete event when Delete button is clicked', async () => {
-    const wrapper = mount(BaseTable, {
-      props: {
-        items,
-        headers: [...headers, { text: 'Delete', value: 'delete' }]
-      },
-      global: {
-        stubs: {
-          BasePagination: true
-        }
-      }
-    })
-
+    const wrapper = factory({}, [...headers, { text: 'Delete', value: 'delete' }])
     await wrapper.find('button').trigger('click')
     expect(wrapper.emitted('delete')).toBeTruthy()
   })

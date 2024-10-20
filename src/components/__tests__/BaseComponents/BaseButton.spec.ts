@@ -14,7 +14,7 @@ describe('BaseButton.vue', () => {
     const wrapper = mount(BaseButton, {
       props: { icon: 'icon.png' }
     })
-    const icon = wrapper.find('img.icon')
+    const icon = wrapper.find('[data-test="base-button-icon"]')
     expect(icon.exists()).toBe(true)
     expect(icon.attributes('src')).toBe('icon.png')
   })
@@ -23,7 +23,7 @@ describe('BaseButton.vue', () => {
     const wrapper = mount(BaseButton, {
       props: { loading: true }
     })
-    const loader = wrapper.find('img.loader')
+    const loader = wrapper.find('[data-test="base-button-loader"]')
     expect(loader.exists()).toBe(true)
   })
 

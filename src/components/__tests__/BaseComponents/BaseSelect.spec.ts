@@ -12,15 +12,12 @@ describe('BaseSelect.vue', () => {
     const wrapper = mount(BaseSelect, {
       props: { name: 'test', labelText: 'Test Label', options }
     })
-    expect(wrapper.find('label').text()).toBe('Test Label')
+    expect(wrapper.find('[data-test="base-select-label"]').text()).toBe('Test Label')
   })
 
   it('updates v-model on option select', async () => {
     const wrapper = mount(BaseSelect, {
-      props: { name: 'test', options, modelValue: 1 },
-      global: {
-        stubs: {}
-      }
+      props: { name: 'test', options, modelValue: 1 }
     })
     await wrapper.setProps({ modelValue: 2 })
     expect(wrapper.vm.modelValue).toBe(2)

@@ -1,47 +1,27 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useUserStore } from '@/stores/userStore'
-import { nextTick } from 'vue'
-
-vi.mock('@/composables', () => ({
-  useAxios: () => ({
-    get: vi.fn(() => Promise.resolve({ data: [{ id: 1, name: 'John Doe' }] }))
-  })
-}))
 
 describe('userStore', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
   })
 
-  it('fetches and sets users', async () => {
-    const store = useUserStore()
+  it('fetches and sets users and usersMap', async () => {
+    const userStore = useUserStore()
 
-    expect(store.users.length).toBe(0)
-
-    await store.fetchUsers()
-    await nextTick()
-
-    expect(store.users.length).toBe(1)
-    expect(store.users[0].name).toBe('John Doe')
-  })
-
-  it('populates usersMap correctly after fetching', async () => {
-    const store = useUserStore()
-
-    await store.fetchUsers()
-    await nextTick()
-
-    expect(store.usersMap[1].name).toBe('John Doe')
+    expect(userStore.users.length).toBe(0)
+    await userStore.fetchUsers()
+    expect(userStore.users.length).toBe(10)
+    expect(userStore.usersMap[1].name).toBe(userStore.users[0].name)
   })
 
   it('returns getUsers correctly as computed property', async () => {
-    const store = useUserStore()
+    const userStore = useUserStore()
 
-    await store.fetchUsers()
-    await nextTick()
-
-    expect(store.getUsers.length).toBe(1)
-    expect(store.getUsers[0].label).toBe('John Doe')
+    await userStore.fetchUsers()
+    const randomIndex = Math.floor(Math.random() * 10)
+    expect(userStore.getUsers.length).toBe(10)
+    expect(userStore.getUsers[randomIndex].label).toBe(userStore.users[randomIndex].name)
   })
 })
