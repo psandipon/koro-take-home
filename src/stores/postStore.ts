@@ -2,6 +2,7 @@ import type { Post, FormPost } from '@/types'
 import { defineStore } from 'pinia'
 import { computed, ref, watch } from 'vue'
 import { useAxios, useLocalPostData } from '@/composables'
+import { toast } from 'vue3-toastify'
 
 const { get, post, put, del } = useAxios()
 const { saveLocalPosts, getLocalPosts } = useLocalPostData()
@@ -24,15 +25,20 @@ export const usePostStore = defineStore('postStore', () => {
 
   // GET
   const fetchPosts = async () => {
-    if (loadLocalPosts()) return
+    if (loadLocalPosts()) {
+      toast.success('Post successfully fetched locally')
+      return
+    }
     const response = await get<Post[]>('/posts')
     posts.value = response?.data ?? []
+    toast.success('Post fetched successfully')
   }
 
   // DELETE
   const deletePost = async (id: number) => {
     await del<Post>(`/posts/${id}`)
     posts.value = posts.value.filter((post) => post.id !== id)
+    toast.success('Post deleted successfully')
   }
 
   // POST
@@ -40,6 +46,7 @@ export const usePostStore = defineStore('postStore', () => {
     const response = await post<Post>('/posts', newPost)
     if (response && response.data) {
       posts.value.push(ensureUniqueId(response.data))
+      toast.success('Post added successfully')
     }
   }
 
@@ -50,6 +57,7 @@ export const usePostStore = defineStore('postStore', () => {
     if (response && response.data) {
       const index = posts.value.findIndex((p) => p.id === response.data.id)
       posts.value[index] = response.data
+      toast.success('Post updated successfully')
     }
   }
 
